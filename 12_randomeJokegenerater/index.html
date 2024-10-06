@@ -1,0 +1,55 @@
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>joke-randome joke create</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <main>
+      <div class="joke-container">
+        <h1>Randome Joke</h1>
+        <div id="joke">
+          
+        </div>
+        <div class="button">
+          <button id="btn">Get Joke</button>
+        </div>
+      </div>
+    </main>
+  </body>
+
+  <script>
+    
+    let url =
+      "https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit&type=single";
+
+    let jokecontent = document.getElementById("joke");
+    let btn = document.getElementById("btn");
+
+    function main() {
+      fetch(url)
+      //we can then by two way //
+    //   frist
+        .then(e => e.json()
+          
+        )
+        // second
+        .then(item =>{console.log(item.joke)
+          jokecontent.innerText = `${item.joke}`
+    })
+        .catch((error) => {
+          console.log("error is found ");
+        });
+
+        // addEventListener for chainging the joke//
+
+        btn.addEventListener( "click", main
+              
+        )
+    }
+
+    main();
+  </script>
+</html>
