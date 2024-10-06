@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Card Carousel</title>
+   <style>
+    * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.carousel-container {
+    position: relative;
+    max-width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    min-width: 25%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.card {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+   </style>
+</head>
+<body>
+    <div class="carousel-container">
+        <button class="prev" onclick="prevSlide()">❮</button>
+        <div class="carousel">
+            <div class="carousel-item">
+                <div class="card">
+                    <h3>Card 1</h3>
+                    <p>This is the description for card 1.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="card">
+                    <h3>Card 2</h3>
+                    <p>This is the description for card 2.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="card">
+                    <h3>Card 3</h3>
+                    <p>This is the description for card 3.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="card">
+                    <h3>Card 4</h3>
+                    <p>This is the description for card 4.</p>
+                </div>
+            </div>
+        </div>
+        <button class="next" onclick="nextSlide()">❯</button>
+    </div>
+
+    <script >
+        let currentIndex = 0;
+const carouselItems = document.querySelectorAll('.carousel-item');
+const totalItems = carouselItems.length;
+const itemsToShow = 4; // Number of items visible at once
+
+function showSlide(index) {
+    const carousel = document.querySelector('.carousel');
+    currentIndex = (index + totalItems) % totalItems;
+    const offset = (currentIndex * 100) / itemsToShow;
+    carousel.style.transform = `translateX(-${offset}%)`;
+}
+
+function nextSlide() {
+    showSlide(currentIndex + 1);
+}
+
+function prevSlide() {
+    showSlide(currentIndex - 1);
+}
+
+// Auto slide every 4 seconds
+setInterval(nextSlide, 4000);
+
+    </script>
+</body>
+</html>

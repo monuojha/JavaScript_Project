@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Loading Spinner</title>
+    <style>
+        body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+
+.spinner {
+    width: 80px;
+    height: 80px;
+    border: 6px solid #f3f3f3; /* Light gray */
+    border-left: 6px solid #092e46; /* Blue */
+    
+    border-radius: 50%;
+    animation: color-change 4s linear infinite;
+}
+
+@keyframes color-change {
+    0% {
+        background-color: red;
+    }
+    50% {
+        background-color: yellow;
+    }
+    100% {
+        background-color: green;
+        
+    } 
+
+    /* for rotation animation */
+
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.box {
+    width: 100px;
+    height: 100px;
+  
+}
+
+
+    </style>
+</head>
+<body>
+    <body>
+        <div class="spinner"></div>
+    </body>
+</body>
+</html>

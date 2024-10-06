@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Spinner with Progress Control</title>
+    <style>
+        body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+
+.spinner-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.spinner {
+    width: 100px;
+    height: 100px;
+    border: 10px solid #f3f3f3;
+    border-top: 10px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    color: #3498db;
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <div class="spinner-container">
+        <div class="spinner"></div>
+        <div class="progress-text" id="progress-text">0%</div>
+    </div>
+</body>
+<script>
+    let progress = 0;
+const progressText = document.getElementById('progress-text');
+
+function updateProgress() {
+    progress += 1;
+    if (progress <= 100) {
+        progressText.textContent = `${progress}%`;
+        if (progress === 100) {
+            clearInterval(progressInterval);
+        }
+    }
+}
+
+// Simulate progress every 100ms
+const progressInterval = setInterval(updateProgress, 100);
+
+</script>
+</html>

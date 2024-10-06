@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promoTimer</title>
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+#timer {
+    font-size: 48px;
+    margin: 20px 0;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff6b6b;
+    color: white;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button:focus {
+    outline: none;
+}
+
+#status {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Pomodoro Timer</h1>
+        <div id="timer">
+            <span id="minutes">25</span>:<span id="seconds">00</span>
+        </div>
+        <button id="start">Start</button>
+        <button id="reset">Reset</button>
+        <div id="status">Work Time</div>
+    </div>
+</body>
+
+<script>
+    let workTime = 25;
+let breakTime = 5;
+let isBreak = false;
+let minutes = workTime;
+let seconds = 0;
+let timerInterval;
+
+const minutesDisplay = document.getElementById('minutes');
+const secondsDisplay = document.getElementById('seconds');
+const statusDisplay = document.getElementById('status');
+const startButton = document.getElementById('start');
+const resetButton = document.getElementById('reset');
+
+function updateDisplay() {
+    minutesDisplay.textContent = minutes < 10 ? '0' + minutes : minutes;
+    secondsDisplay.textContent = seconds < 10 ? '0' + seconds : seconds;
+}
+
+function startTimer() {
+    timerInterval = setInterval(() => {
+        if (seconds === 0) {
+            if (minutes === 0) {
+                clearInterval(timerInterval);
+                isBreak = !isBreak;
+                if (isBreak) {
+                    minutes = breakTime;
+                    statusDisplay.textContent = 'Break Time';
+                } else {
+                    minutes = workTime;
+                    statusDisplay.textContent = 'Work Time';
+                }
+                startTimer(); // Start break or next work session
+            } else {
+                minutes--;
+                seconds = 59;
+            }
+        } else {
+            seconds--;
+        }
+        updateDisplay();
+    }, 1000);
+}
+
+function resetTimer() {
+    clearInterval(timerInterval);
+    minutes = workTime;
+    seconds = 0;
+    isBreak = false;
+    statusDisplay.textContent = 'Work Time';
+    updateDisplay();
+}
+
+startButton.addEventListener('click', () => {
+    clearInterval(timerInterval); // Prevent multiple intervals
+    startTimer();
+});
+
+resetButton.addEventListener('click', resetTimer);
+
+updateDisplay(); // Set the initial display
+
+</script>
+</html>

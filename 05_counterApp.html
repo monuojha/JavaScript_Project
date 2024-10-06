@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Counter App</title>
+ <style>
+    /* Global styling */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+:root {
+  --bg-color: #f4f4f9;
+  --text-color: #333;
+}
+
+.dark-theme {
+  --bg-color: #333;
+  --text-color: #f4f4f9;
+}
+
+.app-container {
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+h1 {
+  color: var(--text-color);
+}
+
+#counter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.counter {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.counter-display {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+button {
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #ddd;
+}
+
+#add-counter-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#toggle-theme {
+  padding: 10px 20px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.history {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+ </style>
+</head>
+<body>
+  <div class="app-container">
+    <div class="header">
+      <h1>Counter App</h1>
+      <button id="toggle-theme">Toggle Dark/Light Mode</button>
+    </div>
+    <div id="counter-list"></div>
+    <button id="add-counter-btn">Add New Counter</button>
+  </div>
+
+  <script>
+    // Counter app logic with even more advanced features
+let counterId = 0;
+const counterList = document.getElementById('counter-list');
+const addCounterBtn = document.getElementById('add-counter-btn');
+const toggleThemeBtn = document.getElementById('toggle-theme');
+
+// Toggle dark/light mode
+toggleThemeBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark-theme');
+});
+
+// Load existing counters from localStorage
+window.addEventListener('load', loadCountersFromLocalStorage);
+
+// Add a new counter
+addCounterBtn.addEventListener('click', addCounter);
+
+function addCounter(savedCounter = null) {
+  counterId++;
+  const id = savedCounter ? savedCounter.id : counterId;
+  
+  // Create counter elements
+  const counterDiv = document.createElement('div');
+  counterDiv.classList.add('counter');
+  counterDiv.id = `counter-${id}`;
+  
+  const counterDisplay = document.createElement('div');
+  counterDisplay.classList.add('counter-display');
+  counterDisplay.textContent = savedCounter ? savedCounter.value : '0';
+
+  const incrementInput = document.createElement('input');
+  incrementInput.type = 'number';
+  incrementInput.value = '1';
+  incrementInput.min = '1';
+  incrementInput.style.width = '50px';
+
+  const targetInput = document.createElement('input');
+  targetInput.type = 'number';
+  targetInput.placeholder = 'Set Target';
+  targetInput.style.width = '80px';
+
+  const buttonsDiv = document.createElement('div');
+  buttonsDiv.classList.add('buttons');
+
+  const incrementBtn = document.createElement('button');
+  incrementBtn.textContent = 'Increment';
+  const decrementBtn = document.createElement('button');
+  decrementBtn.textContent = 'Decrement';
+  const resetBtn = document.createElement('button');
+  resetBtn.textContent = 'Reset';
+  const deleteBtn = document.createElement('button');
+  deleteBtn.textContent = 'Delete';
+
+  const historyDiv = document.createElement('div');
+  historyDiv.classList.add('history');
+  
+  // Load history from savedCounter
+  if (savedCounter && savedCounter.history) {
+    savedCounter.history.forEach(record => {
+      const historyEntry = document.createElement('div');
+      historyEntry.textContent = record;
+      historyDiv.appendChild(historyEntry);
+    });
+  }
+
+  // Event listeners for buttons
+  incrementBtn.addEventListener('click', () => {
+    updateCounter(counterDisplay, +incrementInput.value, historyDiv);
+    checkTarget(counterDisplay, targetInput);
+    saveCountersToLocalStorage();
+  });
+  
+  decrementBtn.addEventListener('click', () => {
+    updateCounter(counterDisplay, -incrementInput.value, historyDiv);
+    checkTarget(counterDisplay, targetInput);
+    saveCountersToLocalStorage();
+  });
+
+  resetBtn.addEventListener('click', () => {
+    resetCounter(counterDisplay, historyDiv);
+    saveCountersToLocalStorage();
+  });
+
+  deleteBtn.addEventListener('click', () => {
+    counterDiv.remove();
+    removeCounterFromLocalStorage(id);
+  });
+
+  // Append everything
+  buttonsDiv.append(incrementBtn, decrementBtn, resetBtn, deleteBtn);
+  counterDiv.append(counterDisplay, incrementInput, targetInput, buttonsDiv, historyDiv);
+  counterList.appendChild(counterDiv);
+
+  // Save counters after adding
+  saveCountersToLocalStorage();
+}
+
+// Update counter value
+function updateCounter(display, value, historyDiv) {
+  const currentValue = parseInt(display.textContent, 10);
+  const newValue = currentValue + value;
+  display.textContent = newValue;
+
+  const timestamp = new Date().toLocaleTimeString();
+  const historyEntry = document.createElement('div');
+  historyEntry.textContent = `Value: ${newValue} (at ${timestamp})`;
+  historyDiv.appendChild(historyEntry);
+}
+
+// Reset counter to 0
+function resetCounter(display, historyDiv) {
+  display.textContent = '0';
+  historyDiv.innerHTML = ''; // Clear history
+}
+
+// Check if target is reached
+function checkTarget(display, targetInput) {
+  const targetValue = parseInt(targetInput.value, 10);
+  const currentValue = parseInt(display.textContent, 10);
+
+  if (!isNaN(targetValue) && currentValue >= targetValue) {
+    alert(`Target of ${targetValue} reached!`);
+  }
+}
+
+// Save counters to localStorage
+function saveCountersToLocalStorage() {
+  const counters = [];
+  const counterDivs = document.querySelectorAll('.counter');
+
+  counterDivs.forEach(counter => {
+    const id = counter.id.split('-')[1];
+    const value = counter.querySelector('.counter-display').textContent;
+    const historyEntries = Array.from(counter.querySelectorAll('.history div')).map(entry => entry.textContent);
+    counters.push({
+      id: id,
+      value: value,
+      history: historyEntries
+    });
+  });
+
+  localStorage.setItem('counters', JSON.stringify(counters));
+}
+
+// Load counters from localStorage
+function loadCountersFromLocalStorage() {
+  const savedCounters = JSON.parse(localStorage.getItem('counters'));
+
+  if (savedCounters) {
+    savedCounters.forEach(savedCounter => {
+      addCounter(savedCounter);
+    });
+  }
+}
+
+// Remove counter from localStorage
+function removeCounterFromLocalStorage(id) {
+  let savedCounters = JSON.parse(localStorage.getItem('counters'));
+
+  if (savedCounters) {
+    savedCounters = savedCounters.filter(counter => counter.id !== id);
+    localStorage.setItem('counters', JSON.stringify(savedCounters));
+  }
+}
+
+  </script>
+</body>
+</html>
