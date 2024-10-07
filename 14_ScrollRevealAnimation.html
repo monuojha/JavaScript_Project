@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AOS Scroll Animation</title>
+    <link rel="stylesheet" href="styles.css">
+    
+   <style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    padding: 50px;
+}
+
+h2 {
+    font-size: 2rem;
+    color: #333;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+section {
+    margin-bottom: 50px;
+}
+
+   </style>
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+    <section class="content">
+        <div data-aos="fade-up">
+            <h2>Fade Up Effect</h2>
+            <p>This element will fade in and move up as you scroll.</p>
+        </div>
+
+        <div data-aos="zoom-in">
+            <h2>Zoom In Effect</h2>
+            <p>This element will zoom in as you scroll.</p>
+        </div>
+
+        <div data-aos="flip-left">
+            <h2>Flip Left Effect</h2>
+            <p>This element will flip from the left side as you scroll.</p>
+        </div>
+
+        <div data-aos="fade-right">
+            <h2>Fade Right Effect</h2>
+            <p>This element will fade in from the right side.</p>
+        </div>
+    </section>
+
+    <!-- AOS JS -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- Initialize AOS -->
+    <script>
+        AOS.init({
+            duration: 1000, // Animation duration (in milliseconds)
+            easing: 'ease-in-out', // Easing effect
+            once: true // Animation only happens once
+        });
+    </script>
+</body>
+</html>

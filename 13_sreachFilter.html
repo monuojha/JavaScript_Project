@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Filter</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.filter-options {
+    margin: 15px 0;
+}
+
+select {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.product {
+    background-color: #fff;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product Search Filter</h1>
+        <input type="text" id="searchBar" placeholder="Search products..." onkeyup="filterProducts()">
+
+        <div class="filter-options">
+            <label for="category">Filter by Category:</label>
+            <select id="category" onchange="filterProducts()">
+                <option value="all">All</option>
+                <option value="electronics">Electronics</option>
+                <option value="clothing">Clothing</option>
+                <option value="furniture">Furniture</option>
+            </select>
+        </div>
+
+        <div class="filter-options">
+            <label for="citySearch">Search by City:</label>
+            <input type="text" id="citySearch" placeholder="Enter city..." onkeyup="filterProducts()">
+        </div>
+
+        <div class="filter-options">
+            <label for="pinCodeSearch">Search by Pin Code:</label>
+            <input type="text" id="pinCodeSearch" placeholder="Enter pin code..." onkeyup="filterProducts()">
+        </div>
+
+        <div class="filter-options">
+            <label for="stateSearch">Search by State:</label>
+            <input type="text" id="stateSearch" placeholder="Enter state..." onkeyup="filterProducts()">
+        </div>
+
+        <ul id="productList">
+            <li class="product" data-category="electronics" data-address="123 Elm St" data-city="Los Angeles" data-pin="90001" data-state="California">Smartphone - Los Angeles, 90001, California</li>
+            <li class="product" data-category="clothing" data-address="456 Oak Ave" data-city="New York" data-pin="10001" data-state="New York">T-shirt - New York, 10001, New York</li>
+            <li class="product" data-category="furniture" data-address="789 Pine Rd" data-city="Chicago" data-pin="60601" data-state="Illinois">Chair - Chicago, 60601, Illinois</li>
+            <li class="product" data-category="electronics" data-address="321 Maple Dr" data-city="Austin" data-pin="73301" data-state="Texas">Laptop - Austin, 73301, Texas</li>
+            <li class="product" data-category="clothing" data-address="654 Cedar Ln" data-city="San Francisco" data-pin="94101" data-state="California">Jeans - San Francisco, 94101, California</li>
+            <li class="product" data-category="furniture" data-address="987 Birch Blvd" data-city="Seattle" data-pin="98101" data-state="Washington">Table - Seattle, 98101, Washington</li>
+        </ul>
+    </div>
+ 
+</body>
+<script>
+    function filterProducts() {
+    const searchTerm = document.getElementById('searchBar').value.toLowerCase();
+    const categoryFilter = document.getElementById('category').value;
+    const citySearchTerm = document.getElementById('citySearch').value.toLowerCase();
+    const pinCodeSearchTerm = document.getElementById('pinCodeSearch').value;
+    const stateSearchTerm = document.getElementById('stateSearch').value.toLowerCase();
+    const products = document.querySelectorAll('.product');
+
+    products.forEach(product => {
+        const productName = product.textContent.toLowerCase();
+        const productCategory = product.getAttribute('data-category');
+        const productCity = product.getAttribute('data-city').toLowerCase();
+        const productPinCode = product.getAttribute('data-pin');
+        const productState = product.getAttribute('data-state').toLowerCase();
+        console.log(productName.includes(searchTerm))
+        // Check if the product matches the search term, category, city, pin code, and state filters
+        if (
+            (categoryFilter === 'all' || categoryFilter === productCategory) &&
+            productName.includes(searchTerm)  &&
+            productCity.includes(citySearchTerm) &&
+            productPinCode.includes(pinCodeSearchTerm) &&
+            productState.includes(stateSearchTerm)
+        ) {
+            product.style.display = '';
+        } else {
+            product.style.display = 'none';
+        }
+    });
+}
+
+</script>
+</html>
