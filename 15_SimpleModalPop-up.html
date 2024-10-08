@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoom-in Modal</title>
+    <style>
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 300px;
+            transition: transform 0.5s ease-in;
+        }
+
+        .modal-overlay.show {
+            display: block;
+        }
+
+        .modal-content.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .close-btn {
+            float: right;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Click the button to open the modal:</h2>
+<button id="openModalBtn">Open Zoom-in Modal</button>
+
+<div id="modal" class="modal-overlay">
+    <div class="modal-content">
+        <span id="closeModalBtn" class="close-btn">&times;</span>
+        <h3>This is a Zoom-in Modal</h3>
+        <p>Some content inside the modal...</p>
+    </div>
+</div>
+
+<script>
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modal = document.getElementById('modal');
+    const modalContent = document.querySelector('.modal-content');
+
+    openModalBtn.addEventListener('click', function() {
+        modal.classList.add('show');
+        modalContent.classList.add('show');
+    });
+
+    closeModalBtn.addEventListener('click', function() {
+        modal.classList.remove('show');
+        modalContent.classList.remove('show');
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.classList.remove('show');
+            modalContent.classList.remove('show');
+        }
+    });
+</script>
+
+</body>
+</html>

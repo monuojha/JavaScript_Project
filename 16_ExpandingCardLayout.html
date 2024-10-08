@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Continuous Slider</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #eaeaea;
+            overflow: hidden;
+        }
+
+        .slider-container {
+            width: 80%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-slider {
+            display: flex;
+            width: calc(300px * 5); /* Total width for original cards */
+            animation: slide 20s infinite linear;
+        }
+
+        .card {
+            flex: 0 0 300px; /* Fixed width for each card */
+            height: 300px;
+            background-size: cover;
+            margin: 0 10px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s ease;
+            position: relative;
+        }
+
+        .card h3 {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: 24px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-300px); /* Move out the first card */
+            }
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            z-index: 1; /* Bring the hovered card to the front */
+        }
+    </style>
+</head>
+<body>
+
+<div class="slider-container">
+    <div class="card-slider">
+        <div class="card" style="background-image: url('https://via.placeholder.com/600/FF5733/FFFFFF?text=Card+1');">
+            <h3>Card 1</h3>
+        </div>
+        <div class="card" style="background-image: url('https://via.placeholder.com/600/33FF57/FFFFFF?text=Card+2');">
+            <h3>Card 2</h3>
+        </div>
+        <div class="card" style="background-image: url('https://via.placeholder.com/600/3357FF/FFFFFF?text=Card+3');">
+            <h3>Card 3</h3>
+        </div>
+        <div class="card" style="background-image: url('https://via.placeholder.com/600/FFC300/FFFFFF?text=Card+4');">
+            <h3>Card 4</h3>
+        </div>
+        <div class="card" style="background-image: url('https://via.placeholder.com/600/DAF7A6/FFFFFF?text=Card+5');">
+            <h3>Card 5</h3>
+        </div>
+        <!-- Duplicate cards for seamless effect -->
+        <div class="card" style="background-image: url('https://via.placeholder.com/600/FF5733/FFFFFF?text=Card+1');">
+            <h3>Card 1</h3>
+        </div>
+        <div class="card" style="background-image: url('https://via.placeholder.com/600/33FF57/FFFFFF?text=Card+2');">
+            <h3>Card 2</h3>
+        </div>
+        <div class="card" style="background-image: url('https://via.placeholder.com/600/3357FF/FFFFFF?text=Card+3');">
+            <h3>Card 3</h3>
+        </div>
+        <div class="card" style="background-image: url('https://via.placeholder.com/600/FFC300/FFFFFF?text=Card+4');">
+            <h3>Card 4</h3>
+        </div>
+        <div class="card" style="background-image: url('https://via.placeholder.com/600/DAF7A6/FFFFFF?text=Card+5');">
+            <h3>Card 5</h3>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
