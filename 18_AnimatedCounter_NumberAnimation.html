@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Counter</title>
+    <style>
+        /* Style for the counter number */
+.counter {
+    font-size: 48px; /* Size of the counter */
+    font-weight: bold; /* Makes the number bold */
+    color: #3498db; /* Sets the color of the counter (blue in this case) */
+    text-align: center; /* Aligns the text to the center */
+    margin-top: 20px; /* Adds some space above the counter */
+    font-family: 'Arial', sans-serif; /* Font family for the counter */
+    transition: all 0.3s ease-in-out; /* Optional: adds a smooth transition for color, scale, etc. */
+}
+
+/* Add a hover effect (optional) */
+.counter:hover {
+    color: #2ecc71; /* Change color to green when hovered */
+    transform: scale(1.1); /* Slightly enlarge the counter */
+}
+
+    </style>
+</head>
+<body>
+
+<div class="counter" id="counter">0</div>
+
+<script>
+    function animateCounter(id, start, end, duration) {
+        const element = document.getElementById(id);
+        let startTime = null;
+
+        const step = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            console.log(timestamp)
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            // console.log(progress)
+            element.innerHTML = Math.floor(progress * (end - start) + start);
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+
+        window.requestAnimationFrame(step);
+    }
+
+    // Trigger the counter animation
+    animateCounter("counter", 0, 1000, 3000); // Counter from 0 to 1000 in 3 seconds
+</script>
+
+</body>
+</html>
