@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shake Input Fields</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Style for input fields */
+      input {
+        margin: 10px 0;
+        padding: 8px;
+        font-size: 16px;
+        width: 200px;
+      }
+
+      /* Shake animation */
+      .shake {
+        animation: shake-animation 0.5s ease;
+      }
+
+      /* Keyframes for shake animation */
+      @keyframes shake-animation {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+          transform: translateX(-10px);
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+          transform: translateX(10px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <form id="inputForm">
+      <input type="text" id="inputField1" placeholder="First Name" /><br />
+      <input type="text" id="inputField2" placeholder="Last Name" /><br />
+      <input type="email" id="inputField3" placeholder="Email" /><br />
+      <input type="password" id="inputField4" placeholder="Password" /><br />
+      <button type="button" id="shakeButton">Shake All Fields</button>
+    </form>
+
+    <script>
+      // Select all input fields
+      const inputFields = document.querySelectorAll("input");
+      const shakeButton = document.getElementById("shakeButton");
+
+      // Add click event listener to the shake button
+      shakeButton.addEventListener("click", function () {
+        inputFields.forEach(function (field) {
+          // Add shake class to each input field
+          field.classList.add("shake");
+
+          // Remove shake class after the animation ends (0.5s)
+          setTimeout(() => {
+            field.classList.remove("shake");
+          }, 500);
+        });
+      });
+    </script>
+  </body>
+</html>
