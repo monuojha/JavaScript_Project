@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Progress Indicators</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* General Content Styling */
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.long-content {
+  height: 2000px; /* Adjust to make the page scrollable */
+}
+
+/* Top Progress Bar */
+#topProgressBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 10px;
+  background-color: #4caf50;
+  z-index: 100;
+}
+
+/* Side Progress Indicator */
+#sideProgressBar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 0%;
+  background-color: #3498db;
+  z-index: 100;
+}
+
+/* Floating Progress Indicator */
+#floatingIndicator {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  padding: 10px;
+  border-radius: 50%;
+  font-size: 14px;
+  z-index: 100;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Top Progress Bar -->
+  <div id="topProgressBar"></div>
+
+  <!-- Side Progress Indicator -->
+  <div id="sideProgressBar"></div>
+
+  <!-- Floating Progress Indicator -->
+  <div id="floatingIndicator">0%</div>
+
+  <div id="content">
+    <h1>Scroll Progress Indicators Example</h1>
+    <p>Scroll down the page to see the top, side, and floating progress indicators in action.</p>
+    <div class="long-content">
+      <p>... Lots of text and content here ...</p>
+    </div>
+  </div>
+
+  <script >
+    window.onscroll = function() {
+  scrollProgress();
+};
+
+function scrollProgress() {
+  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  var scrolled = (winScroll / height) * 100;
+
+  // Update Top Progress Bar
+  document.getElementById("topProgressBar").style.width = scrolled + "%";
+
+  // Update Side Progress Bar
+  document.getElementById("sideProgressBar").style.height = scrolled + "%";
+
+  // Update Floating Indicator
+  document.getElementById("floatingIndicator").innerHTML = Math.round(scrolled) + "%";
+}
+
+  </script>
+</body>
+</html>
