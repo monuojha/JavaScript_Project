@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Rating Animation</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Style for the star rating container */
+.star-rating {
+    display: inline-block;
+    font-size: 40px; /* Adjust the size of the stars */
+    direction: ltr ; /* Display stars from right to left */
+}
+
+/* Base style for each star */
+.star {
+    cursor: pointer;
+    color: #ddd; /* Unselected star color */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+/* Hover effect for the stars */
+.star:hover,
+.star:hover ~ .star {
+    color: #f39c12; /* Color for hovered stars */
+}
+
+/* Clicked/selected stars */
+.star.selected {
+    color: #f39c12; /* Color for selected stars */
+}
+
+/* Disable pointer events once a rating is selected */
+.star-rating.selected .star {
+    pointer-events: none;
+}
+
+    </style>
+</head>
+<body>
+
+<div class="star-rating">
+    <span class="star" data-value="1">&#9733;</span>
+    <span class="star" data-value="2">&#9733;</span>
+    <span class="star" data-value="3">&#9733;</span>
+    <span class="star" data-value="4">&#9733;</span>
+    <span class="star" data-value="5">&#9733;</span>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+<script>
+    // Select all the stars
+const stars = document.querySelectorAll('.star');
+  console.log(stars)
+
+// Add click event listener to each star
+stars.forEach((star) => {
+    star.addEventListener('click', function() {
+        const value = this.getAttribute('data-value');
+        highlightStars(value);
+    });
+});
+
+// Function to highlight the clicked stars and update rating
+function highlightStars(rating) {
+    stars.forEach((star) => {
+        if (star.getAttribute('data-value') <= rating) {
+            star.classList.add('selected');
+        } else {
+            star.classList.remove('selected');
+        }
+    });
+}
+
+</script>
+</html>
