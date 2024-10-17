@@ -108,7 +108,7 @@ ul {
         const productCity = product.getAttribute('data-city').toLowerCase();
         const productPinCode = product.getAttribute('data-pin');
         const productState = product.getAttribute('data-state').toLowerCase();
-        console.log(productName.includes(searchTerm))
+       
         // Check if the product matches the search term, category, city, pin code, and state filters
         if (
             (categoryFilter === 'all' || categoryFilter === productCategory) &&

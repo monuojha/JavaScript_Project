@@ -1,66 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Progress Bar Animation</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <style>
-        body{
-            font-family: Arial, sans-serif;
-            background-color: rgb(26, 27, 28);
-            margin: 0;
-            padding: 0;
-        }
-        /* Container for the progress bar */
-.progress-container {
-    position: relative;
-margin-top: 100px;
-    width: 100%; /* Full width of the container */
-    background-color: #f3f3f3; /* Light grey background */
-    border-radius: 5px; /* Rounded corners */
-    overflow: hidden; /* Ensures the bar stays inside the container */
-    height: 30px; /* Height of the progress bar container */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow for visual appeal */
-}
+      body {
+        font-family: Arial, sans-serif;
+        background-color: rgb(26, 27, 28);
+        margin: 0;
+        padding: 0;
+      }
+      /* Container for the progress bar */
+      .progress-container {
+        position: relative;
+        margin-top: 100px;
+        width: 100%; /* Full width of the container */
+        background-color: #f3f3f3; /* Light grey background */
+        border-radius: 5px; /* Rounded corners */
+        overflow: hidden; /* Ensures the bar stays inside the container */
+        height: 30px; /* Height of the progress bar container */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional shadow for visual appeal */
+      }
 
-/* The actual progress bar */
-.progress-bar {
-    height: 100%; /* Full height of the container */
-    width: 0%; /* Initially 0%, will be updated with JS */
-    background-color: #4caf50; /* Green color */
-    transition: width 1s ease-in-out; /* Smooth animation over 1 second */
-    border-radius: 5px 0 0 5px; /* Rounds the left side of the bar */
-}
-
+      /* The actual progress bar */
+      .progress-bar {
+        height: 100%; /* Full height of the container */
+        width: 0%; /* Initially 0%, will be updated with JS */
+        background-color: #4caf50; /* Green color */
+        transition: width 1s ease-in-out; /* Smooth animation over 1 second */
+        border-radius: 5px 0 0 5px; /* Rounds the left side of the bar */
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <div class="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
 
-<div class="progress-container">
-    <div class="progress-bar" id="progress-bar"></div>
-</div>
+    <script>
+      // Progress bar animation function
+      function animateProgressBar(id, duration) {
+        const progressBar = document.getElementById(id);
+        let width = 0; // Starting width (0%)
 
-<script >
-    // Progress bar animation function
-function animateProgressBar(id, duration) {
-    const progressBar = document.getElementById(id);
-    let width = 0; // Starting width (0%)
-    
-    const interval = setInterval(() => {
-        if (width >= 100) {
+        const interval = setInterval(() => {
+          if (width >= 100) {
             clearInterval(interval); // Stop animation when width reaches 100%
-        } else {
+          } else {
             width++;
             progressBar.style.width = width + "%"; // Update width of progress bar
-        }
-    }, duration / 100); // Update width every few milliseconds based on duration
-}
+          }
+        }, duration / 100); // Update width every few milliseconds based on duration
+      }
 
-// Trigger the progress bar animation (5 seconds in this case)
-animateProgressBar('progress-bar', 5000);
-
-</script>
-
-</body>
+      // Trigger the progress bar animation (5 seconds in this case)
+      animateProgressBar("progress-bar", 5000);
+    </script>
+  </body>
 </html>
