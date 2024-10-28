@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bouncing Ball Animation</title>
+  <style>
+    /* Container for the ball */
+    #container {
+      width: 100%;
+      height: 400px;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #333;
+      background-color: #f0f0f0;
+    }
+    /* Ball styling */
+    #ball {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #ff5722;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="ball"></div>
+  </div>
+
+  <script>
+    // JavaScript for Bouncing Ball Animation
+    let ball = document.getElementById("ball");
+    let container = document.getElementById("container");
+    let pos = 0;
+    let velocity = 2;
+    let gravity = 0.5;
+    let bounce = 0.7;
+
+    function bounceBall() {
+      pos += velocity; // Move ball downward
+      velocity += gravity; // Apply gravity effect
+
+      // Check if the ball hits the bottom of the container
+      if (pos >= container.offsetHeight - ball.offsetHeight) {
+        pos = container.offsetHeight - ball.offsetHeight; // Adjust to bottom position
+        velocity *= -bounce; // Reverse and reduce velocity for bounce
+      }
+
+      ball.style.top = pos + "px"; // Update ball position
+      requestAnimationFrame(bounceBall); // Continue animation
+    }
+
+    bounceBall(); // Start the animation
+  </script>
+</body>
+</html>
